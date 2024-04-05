@@ -24,3 +24,17 @@ jobs:
 
       - name: Run Newman
         run: newman run catApi.json
+
+ - name: Update Postman Collection
+        run: |
+          # Copy the catApi.json file to the desired directory inside the repository
+          cp catApi.json path/to/repository/folder/
+          
+          # Add changes to the Git index
+          git add catApi.json
+          
+          # Create a commit with a message
+          git commit -m "Update Postman Collection"
+          
+          # Push changes to GitHub
+          git push
