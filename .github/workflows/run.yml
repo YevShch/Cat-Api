@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run Newman
-        run: newman run СAT-API.postman_collection.json
+        run: newman run catApi.json
 
     
 
