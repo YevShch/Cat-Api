@@ -27,5 +27,5 @@ jobs:
           test_results=$(cat test_results.json)
 
           # Send test results to Discord
-          curl -X POST -H 'Content-Type: application/json' -d '{"content":"Test results:\n'${test_results}'"}' $DISCORD_WEBHOOK_URL
+          curl -X POST -H 'Content-Type: application/json' --data-raw '{"content":"Test results:\n'"${test_results}"'"}' $DISCORD_WEBHOOK_URL
 
