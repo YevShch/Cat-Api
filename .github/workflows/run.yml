@@ -17,7 +17,7 @@ jobs:
 
       - name: Run Newman and Export Test Results
         run: |
-          newman run CAT-API.postman_collection.json --reporters json,htmlextra --reporter-json-export test_results.json --reporter-htmlextra-export test_results.html
+          newman run CAT-API.postman_collection.json --reporters htmlextra --reporter-htmlextra-export test_results.html
 
       - name: Upload Test Results to Discord
         if: always()
