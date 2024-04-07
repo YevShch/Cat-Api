@@ -1,5 +1,9 @@
 {
   "dependencies": {
     "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "newman": "^6.1.2",
+    "newman-reporter-htmlextra": "^1.23.1"
   }
 }
