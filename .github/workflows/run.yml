@@ -1,4 +1,4 @@
-name: CAT API Testing with Postman
+name: REST-API Testing with Postman
 
 on:
   push:
