@@ -15,7 +15,7 @@ jobs:
         run: npm install
 
       - name: Run Newman
-        run: newman run CAT_API.postman_collection.json
+        run: newman run CAT-API.postman_collection.json
 
       - name: Send Discord Notification Test Passed
         env:
