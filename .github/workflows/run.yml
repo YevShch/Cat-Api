@@ -21,7 +21,7 @@ jobs:
 
       - name: Send Discord Notification with Test Results
         env:
-          DISCORD_WEBHOOK_URL: 'https://discordapp.com/api/webhooks/1226464109680263219/cfAUULyxtqG79ydcUXW_5oeZKcFu6E7PeFiik8-b3R_GFjLVlnJOcU9Y8rClh0jgl5po'
+          DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1226464109680263219/cfAUULyxtqG79ydcUXW_5oeZKcFu6E7PeFiik8-b3R_GFjLVlnJOcU9Y8rClh0jgl5po
         run: |
           # Read test results from JSON file
           test_results=$(cat test_results.json)
