@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "97081668-23ae-4602-ad76-d545065e6cd4",
+		"name": "CAT API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33841208"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"response time meets the predefined performance criteria\", function () {\r",
+							"    const timeResponse = pm.response.responseTime;\r",
+							"console.log(\"Response time for breed image: \" + responseTime + \" mc\");\r",
+							"\r",
+							"// performance criteria\r",
+							"const expectedResponseTime = 600; \r",
+							"if (timeResponse > expectedResponseTime) {\r",
+							"    console.error(\"Response time is longer than expected\");\r",
+							"}\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "live_7iiNlWVrlyxcUhYzWx9P66jMqZuVpFvUli1S8xlBa53gPSXVI3kIE4L54Po0y38p",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.thecatapi.com/v1/images/search?breed_ids=beng",
+					"protocol": "https",
+					"host": [
+						"api",
+						"thecatapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"images",
+						"search"
+					],
+					"query": [
+						{
+							"key": "breed_ids",
+							"value": "beng"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
