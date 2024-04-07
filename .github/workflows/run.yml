@@ -35,3 +35,10 @@ jobs:
         run: npm install
       - name: Run Newman
         run: newman run CAT-API.postman_collection.json
+
+      - name: Send Discord Notification
+       env:
+       DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1226464109680263219/cfAUULyxtqG79ydcUXW_5oeZKcFu6E7PeFiik8-b3R_GFjLVlnJOcU9Y8rClh0jgl5po
+       run: |
+       curl -X POST -H 'Content-Type: application/json' -d '{"content":"Postman tests are completed!"}' $DISCORD_WEBHOOK_URL
+
