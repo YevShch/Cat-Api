@@ -499,6 +499,23 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "9-rate limit (man)",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "4-Looping Through Data(Auto)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"description": "\nThis endpoint makes an HTTP GET request to retrieve images of cats based on the specified breed ID. The `limit` query parameter can be used to limit the number of images returned. The response will be in JSON format with an array of cat images. \n\nFor example:\n- To retrieve images of a specific breed with ID \"xyz123\", the request would be: `GET https://api.thecatapi.com/v1/images/search?limit=1&breed_ids=xyz123`\n\nThe last execution of this request returned a status code of 200 and an empty JSON array as the response.\n"
+					},
+					"response": []
 				}
 			]
 		},
