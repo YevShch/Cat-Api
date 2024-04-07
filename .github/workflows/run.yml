@@ -37,12 +37,7 @@ jobs:
       - name: Run Newman
         run: newman run CAT-API.postman_collection.json
 
-      - name: Update Postman Collection
-        run: |
-         cp catApi.json path/to/CAT-API/
-         git add catApi.json   
-         git commit -m "Update Postman Collection"
-         git push
+     
  
         
        
