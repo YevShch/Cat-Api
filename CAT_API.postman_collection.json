@@ -217,82 +217,6 @@
 			]
 		},
 		{
-			"name": "Concurrent Requests. Verification of the cat breed images",
-			"item": [
-				{
-					"name": "Concurrent Requests Verify Cat Breed Images",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Variable containing a list of cat breeds for the test\r",
-									"const catBreeds = ['beng', 'siam', 'pers', 'abys', 'tang', 'bomb', 'chau', 'buri'];\r",
-									"\r",
-									"// Iterating over each cat breed\r",
-									"_.each(catBreeds, function(breed) {\r",
-									"    // Sending a GET request to fetch an image of a specific cat breed\r",
-									"    pm.sendRequest({\r",
-									"        params: {\r",
-									"            breed_id: breed\r",
-									"        }\r",
-									"    }, function (err, res) {\r",
-									"        // Checking that the response contains a correct status code\r",
-									"        pm.test('Status code is 200', function() {\r",
-									"            pm.response.to.have.status(200);\r",
-									"        });\r",
-									"        // Checking that the response is in a valid JSON format\r",
-									"        pm.test('Response is valid JSON', function() {\r",
-									"            pm.response.to.be.json;\r",
-									"        });\r",
-									"        // Checking that the response contains an image URL\r",
-									"        pm.test('Response contains image URL', function() {\r",
-									"            pm.expect(pm.response.json()[0].url).to.exist;\r",
-									"        });\r",
-									"    });\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-api-key",
-								"value": "live_7iiNlWVrlyxcUhYzWx9P66jMqZuVpFvUli1S8xlBa53gPSXVI3kIE4L54Po0y38p",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/images/search",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"images",
-								"search"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"description": "This folder contains tests that utilize concurrent requests **to verify the functionality of fetching** cat breed images from the API. By sending multiple requests simultaneously, these tests aim to ensure the API's ability to handle concurrent requests efficiently and accurately. The tests validate that the responses contain correct status codes, are in a valid JSON format, and include image URLs for various cat breeds. Concurrent request testing **helps assess the API's performance and scalability** under load."
-		},
-		{
 			"name": "Custom Property comparison",
 			"item": [
 				{
@@ -304,6 +228,8 @@
 								"exec": [
 									"// Send a GET request to fetch data about the first cat breed\r",
 									"pm.sendRequest({\r",
+									"    url: 'https://api.thecatapi.com/v1/breeds',\r",
+									"    method: 'GET',\r",
 									"    params: {\r",
 									"        q: 'breed1' // Name of the first cat breed\r",
 									"    }\r",
@@ -313,6 +239,8 @@
 									"\r",
 									"    // Send a GET request to fetch data about the second cat breed\r",
 									"    pm.sendRequest({\r",
+									"        url: 'https://api.thecatapi.com/v1/breeds',\r",
+									"        method: 'GET',\r",
 									"        params: {\r",
 									"            q: 'breed2' // Name of the second cat breed\r",
 									"        }\r",
