@@ -709,11 +709,15 @@
 					}
 				],
 				"url": {
-					"raw": "{{baseUrl}}/images/search?limit=1&breed_ids=abys",
+					"raw": "https://api.thecatapi.com/v1/images/search?limit=1&breed_ids=abys",
+					"protocol": "https",
 					"host": [
-						"{{baseUrl}}"
+						"api",
+						"thecatapi",
+						"com"
 					],
 					"path": [
+						"v1",
 						"images",
 						"search"
 					],
