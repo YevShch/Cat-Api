@@ -19,12 +19,15 @@ jobs:
           newman run CAT-API.postman_collection.json --reporters json --reporter-json-export test_results.json
 
       - name: Upload Test Results to Discord
+        if: always() 
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          curl -F 'payload_json={"content":"Test results file:"}' \
-          -F 'file1=@test_results.json' \
-          $DISCORD_WEBHOOK_URL
+          curl -X POST -H 'Content-Type: multipart/form-data' \
+          -F "file=@test_results.json" \
+         -F "payload_json={\"content\":\"Test results file:\"}" \
+         $DISCORD_WEBHOOK_URL
+
 
       - name: Send Discord Notification Test Passed
         if: always()
