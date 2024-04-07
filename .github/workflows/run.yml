@@ -22,7 +22,7 @@ jobs:
       - name: Upload Test Results to Discord
         if: always()
         env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1226597716226736160/tfaUh_rMPUMF3Ge_5Nnb4P3cVb66qhMIfiPyTbJfEt7c30DyV5wdVb3TCL70t67LKjJJ
         run: |
           curl -X POST -H 'Content-Type: multipart/form-data' \      
           -F "file=@test_results.html" \
