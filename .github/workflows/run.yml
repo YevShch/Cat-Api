@@ -14,6 +14,18 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x] 
+    
+    
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Download Postman Collection
+        run: curl -o collection.json https://url-to-your-postman-collection/collection.json
+
+
+
 
     steps:
       - name: Checkout code
@@ -23,7 +35,7 @@ jobs:
         run: npm install
 
       - name: Run Newman
-        run: newman run catApi.json
+        run: newman run CAT-API.postman_collection.json
 
       - name: Update Postman Collection
         run: |
