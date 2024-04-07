@@ -15,7 +15,8 @@ jobs:
         run: npm install
 
       - name: Run Newman and Export Test Results
-        run: newman run CAT-API.postman_collection.json --reporters json --reporter-json-export test_results.json
+        run: |
+          newman run CAT-API.postman_collection.json --reporters json --reporter-json-export test_results.json
 
       - name: Upload Test Results to Discord
         env:
