@@ -8,522 +8,10 @@
 	},
 	"item": [
 		{
-			"name": "övriga requests",
+			"name": "7A. Concurrent Requests. Verification of the cat breed images",
 			"item": [
 				{
-					"name": "get all breeds",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/breeds",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"breeds"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2 (man) get one image of specified breed",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200 OK\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response contains image URL and matches specified breed\", function () {\r",
-									"    const responseJson = pm.response.json();\r",
-									"    pm.expect(responseJson.length).to.be.above(0);\r",
-									"\r",
-									"    // får bildens url\r",
-									"    const imageUrl = responseJson[0].url;\r",
-									"    pm.expect(imageUrl).to.include(\"https://cdn2.thecatapi.com/images/\");\r",
-									"\r",
-									"    // får ras id från respons\r",
-									"    const breedId = responseJson[0].breeds[0].id;\r",
-									"\r",
-									"    // kollar att ras id stämmer med sökt id som är lik med \"abys\"\r",
-									"    pm.expect(breedId).to.eql(\"abys\");\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-api-key",
-								"value": "live_7iiNlWVrlyxcUhYzWx9P66jMqZuVpFvUli1S8xlBa53gPSXVI3kIE4L54Po0y38p",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/images/search?breed_id=abys",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"images",
-								"search"
-							],
-							"query": [
-								{
-									"key": "breed_id",
-									"value": "abys"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "TEST",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-api-key",
-								"value": "live_7iiNlWVrlyxcUhYzWx9P66jMqZuVpFvUli1S8xlBa53gPSXVI3kIE4L54Po0y38p",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/breeds/:breed_id/facts",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"breeds",
-								":breed_id",
-								"facts"
-							],
-							"variable": [
-								{
-									"key": "breed_id",
-									"value": ""
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "1 (man) get one image of cat",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200 OK\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"//kollar att svaret inehåller url\r",
-									"pm.test(\"Response contains image URL\", function () {\r",
-									"    const responseJson = pm.response.json();\r",
-									"    pm.expect(responseJson[0].url).to.include(\"https://cdn2.thecatapi.com/images/\");\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-api-key",
-								"value": "live_7iiNlWVrlyxcUhYzWx9P66jMqZuVpFvUli1S8xlBa53gPSXVI3kIE4L54Po0y38p",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/images/search",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"images",
-								"search"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "3 (man) get a breed with invalid id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 404 Not Found\", function () {\r",
-									"    pm.response.to.have.status(404);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response contains appropriate error message\", function () {\r",
-									"    const responseJson = pm.response.json();\r",
-									"    pm.expect(responseJson.message).to.eql(\"404 - please consult the documentation for correct url to call. https://docs.thecatapi.com/\");\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-api-key",
-								"value": "live_7iiNlWVrlyxcUhYzWx9P66jMqZuVpFvUli1S8xlBa53gPSXVI3kIE4L54Po0y38p",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/search?breed_id=loremipsum",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"search"
-							],
-							"query": [
-								{
-									"key": "breed_id",
-									"value": "loremipsum"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "3-Felhantering(Manuell)",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "8-Datavalidering(Manuell)",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "2-Response Headers(Automat)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response is JSON\", function () {\r",
-									"    pm.response.to.be.json;\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response contains image URL\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[0].url).to.be.a('string');\r",
-									"\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/images/search?limit=10",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"images",
-								"search"
-							],
-							"query": [
-								{
-									"key": "limit",
-									"value": "10"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "6-Sortering (Manuell)",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/breeds?sort=name",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"breeds"
-							],
-							"query": [
-								{
-									"key": "sort",
-									"value": "name"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "7-Flera endpoints (Manuell)",
-					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "live_zekROvNpQXXRIbE8xaDubnZZ23xOhwQU2WkoV76ob41PMlHo6Cf33BR1se2cWbmo",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "x-api-key",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/breeds/:breed_id/facts?limit=5&page=0&order=ASC",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"breeds",
-								":breed_id",
-								"facts"
-							],
-							"query": [
-								{
-									"key": "limit",
-									"value": "5"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "order",
-									"value": "ASC"
-								}
-							],
-							"variable": [
-								{
-									"key": "breed_id",
-									"value": ""
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "1-Svarstid (Auto)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"let threshold = 450;\r",
-									"\r",
-									"pm.test(\"Is the response time below the threshold?\", function () {\r",
-									"     \r",
-									"     let responseTime = pm.response.responseTime;\r",
-									"     pm.expect(responseTime).to.be.below(threshold);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/images/search",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"images",
-								"search"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "4 (man) get breed list(pagination)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"// Kontrollera att rätt antal resultat returneras",
-									"pm.test(\"Correct number of results per page\", function () {",
-									"    // Ange det förväntade antalet resultat per sida",
-									"    var expectedResultsPerPage = 10;",
-									"",
-									"    // Konvertera JSON-svaret till ett JavaScript-objekt",
-									"    var jsonData = pm.response.json();",
-									"",
-									"    // Hämta antalet resultat från svaret",
-									"    var actualResults = jsonData.length;",
-									"",
-									"    // Jämför det antalet resultat med det förväntade",
-									"    pm.expect(actualResults).to.equal(expectedResultsPerPage);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-api-key",
-								"value": "live_edemSI3jn1cjn5GAml5rZyVt2LeiiCmt16XBBLaOgoZ9xHRsa4jKhdepdfSiuIZH",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/breeds?page=1&limit=10",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"breeds"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "limit",
-									"value": "10"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "9-rate limit (man)",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "4-Looping Through Data(Auto)",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"description": "\nThis endpoint makes an HTTP GET request to retrieve images of cats based on the specified breed ID. The `limit` query parameter can be used to limit the number of images returned. The response will be in JSON format with an array of cat images. \n\nFor example:\n- To retrieve images of a specific breed with ID \"xyz123\", the request would be: `GET https://api.thecatapi.com/v1/images/search?limit=1&breed_ids=xyz123`\n\nThe last execution of this request returned a status code of 200 and an empty JSON array as the response.\n"
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Concurrent Requests. Verification of the cat breed images",
-			"item": [
-				{
-					"name": "Concurrent Requests Verify Cat Breed Images",
+					"name": "Verify Cat Breed Images",
 					"event": [
 						{
 							"listen": "test",
@@ -578,15 +66,11 @@
 							}
 						],
 						"url": {
-							"raw": "https://api.thecatapi.com/v1/images/search",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/images/search",
 							"host": [
-								"api",
-								"thecatapi",
-								"com"
+								"{{baseUrl}}"
 							],
 							"path": [
-								"v1",
 								"images",
 								"search"
 							]
@@ -598,7 +82,7 @@
 			"description": "This folder contains tests that utilize concurrent requests **to verify the functionality of fetching** cat breed images from the API. By sending multiple requests simultaneously, these tests aim to ensure the API's ability to handle concurrent requests efficiently and accurately. The tests validate that the responses contain correct status codes, are in a valid JSON format, and include image URLs for various cat breeds. Concurrent request testing **helps assess the API's performance and scalability** under load."
 		},
 		{
-			"name": "Negativ. Edge Cases",
+			"name": "6A. Negativ Testing. Edge Cases",
 			"item": [
 				{
 					"name": "Invalid breds id",
@@ -772,10 +256,10 @@
 					"response": []
 				}
 			],
-			"description": "This folder contains tests designed to cover **negative edge cases** for the API requests. These tests focus on scenarios where the input parameters are _**invalid or unusual**_, such as **empty breed names**, extremely **long breed names**, and **invalid breed names**. By testing these edge cases, we aim to ensure robustness and reliability of the API under unexpected conditions."
+			"description": "**ENG:** This folder contains tests designed to cover **negative edge cases** for the API requests. These tests focus on scenarios where the input parameters are _**invalid or unusual**_, such as **empty breed names**, extremely **long breed names**, and **invalid breed names**. By testing these edge cases, we aim to ensure robustness and reliability of the API under unexpected conditions.\n\n**SWE:** Den här mappen innehåller tester utformade för **att täcka fall med negativ kant för API-förfrågningar**. Dessa tester fokuserar på scenarier där indataparametrarna är ogiltiga eller ovanliga, såsom tomma rasnamn, extremt långa rasnamn och ogiltiga rasnamn. Genom att testa dessa kantfall **strävar vi efter att säkerställa robusthet och tillförlitlighet hos API:t** under oväntade förhållanden."
 		},
 		{
-			"name": "Custom Property comparison",
+			"name": "8A. Custom Testing. Property Comparison",
 			"item": [
 				{
 					"name": "Fetch Cat Breed Properties Comparison",
@@ -853,10 +337,772 @@
 					"response": []
 				}
 			],
-			"description": "This folder contains tests designed **to compare the properties** of two cat breeds retrieved from The Cat API using custom JavaScript test scripts in Postman. The tests aim to verify that the selected properties of the two cat breeds differ in specified ways. These tests help ensure the accuracy and reliability of the API's response data by comparing the characteristics of different cat breeds."
+			"description": "**ENG**: Tests designed **to compare the properties** of two cat breeds. The tests aim **to verify that the selected properties of the two cat breeds differ in specified ways.** These tests help ensure the accuracy and reliability of the API's response data by comparing the characteristics of different cat breeds.\n\n**SWE**: Tester utformade för **att jämföra egenskaperna hos två kattraser**. Testerna syftar till att verifiera att de utvalda egenskaperna hos de två kattraserna skiljer sig åt på specificerade sätt. Dessa tester **hjälper till att säkerställa noggrannheten och tillförlitligheten hos API:s svarsdata** genom att jämföra egenskaperna hos olika kattraser."
 		},
 		{
-			"name": "Getting a cat breed ID by name",
+			"name": "Manuel tests",
+			"item": [
+				{
+					"name": "1(man)get one cat picture",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "live_nUHcDKgLHM8cOzVjVw5WuiVZw60TazuFVDvWMf696dqfu3Vkr0r4st4sFzCycQUg",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/images/search",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"images",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2(man)get cat picture by breed",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "live_nUHcDKgLHM8cOzVjVw5WuiVZw60TazuFVDvWMf696dqfu3Vkr0r4st4sFzCycQUg",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/images/search?limit=1&breed_ids=abys",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"images",
+								"search"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1"
+								},
+								{
+									"key": "breed_ids",
+									"value": "abys"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4 (man) get a list of breeds with limit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains results\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.length).to.be.above(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains correct number of results\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.length).to.eql(5); // Antal resultat per sida\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response contains appropriate pagination metadata\", function () {\r",
+									"    const responseHeaders = pm.response.headers;\r",
+									"    pm.expect(responseHeaders.get(\"pagination-page\")).to.eql(\"1\"); // Aktuellt sidnummer\r",
+									"    pm.expect(responseHeaders.get(\"pagination-count\")).to.be.above(0); // Totalt antal sidor\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response contains correct number of results\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.length).to.eql(pm.environment.get(\"limit\")); \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains pagination metadata\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.totalPages).to.be.a('number');\r",
+									"    pm.expect(jsonData.page).to.be.a('number');\r",
+									"    pm.expect(jsonData.totalResults).to.be.a('number');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "live_7iiNlWVrlyxcUhYzWx9P66jMqZuVpFvUli1S8xlBa53gPSXVI3kIE4L54Po0y38p",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/breeds?limit=5&page=1",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"breeds"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5 (man)  get a breeds with specified temperament",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response contains 'playful' temperament\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const allTemperaments = responseJson.map(obj => obj.temperament);\r",
+									"    const expectedTemperament = \"lively\";\r",
+									"\r",
+									"    pm.expect(allTemperaments.every(temperament => temperament.includes(expectedTemperament))).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "live_7iiNlWVrlyxcUhYzWx9P66jMqZuVpFvUli1S8xlBa53gPSXVI3kIE4L54Po0y38p",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/breeds/search?temperament=lively\n\n",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"breeds",
+								"search"
+							],
+							"query": [
+								{
+									"key": "temperament",
+									"value": "lively\n\n"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10 (man) test response time duration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"response time meets the predefined performance criteria\", function () {\r",
+									"    const timeResponse = pm.response.responseTime;\r",
+									"console.log(\"Response time for breed image: \" + responseTime + \" mc\");\r",
+									"\r",
+									"// performance criteria\r",
+									"const expectedResponseTime = 600; \r",
+									"if (timeResponse > expectedResponseTime) {\r",
+									"    console.error(\"Response time is longer than expected\");\r",
+									"}\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "live_7iiNlWVrlyxcUhYzWx9P66jMqZuVpFvUli1S8xlBa53gPSXVI3kIE4L54Po0y38p",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/images/search?breed_ids=beng",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"images",
+								"search"
+							],
+							"query": [
+								{
+									"key": "breed_ids",
+									"value": "beng"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all breeds",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/breeds",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"breeds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6-Sortering (Manuell)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/breeds?sort=name",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"breeds"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7-Flera endpoints (Manuell)",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "live_zekROvNpQXXRIbE8xaDubnZZ23xOhwQU2WkoV76ob41PMlHo6Cf33BR1se2cWbmo",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-api-key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/breeds/:breed_id/facts?limit=5&page=0&order=ASC",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"breeds",
+								":breed_id",
+								"facts"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "order",
+									"value": "ASC"
+								}
+							],
+							"variable": [
+								{
+									"key": "breed_id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1 (man) get one image of cat",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//kollar att svaret inehåller url\r",
+									"pm.test(\"Response contains image URL\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson[0].url).to.include(\"https://cdn2.thecatapi.com/images/\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "live_7iiNlWVrlyxcUhYzWx9P66jMqZuVpFvUli1S8xlBa53gPSXVI3kIE4L54Po0y38p",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/images/search",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"images",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3 Felhantering. Get a breed with invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404 Not Found\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains appropriate error message\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.message).to.eql(\"404 - please consult the documentation for correct url to call. https://docs.thecatapi.com/\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "live_7iiNlWVrlyxcUhYzWx9P66jMqZuVpFvUli1S8xlBa53gPSXVI3kIE4L54Po0y38p",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/search?breed_id=loremipsum",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"search"
+							],
+							"query": [
+								{
+									"key": "breed_id",
+									"value": "loremipsum"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2 (man) get one image of specified breed",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains image URL and matches specified breed\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.length).to.be.above(0);\r",
+									"\r",
+									"    // får bildens url\r",
+									"    const imageUrl = responseJson[0].url;\r",
+									"    pm.expect(imageUrl).to.include(\"https://cdn2.thecatapi.com/images/\");\r",
+									"\r",
+									"    // får ras id från respons\r",
+									"    const breedId = responseJson[0].breeds[0].id;\r",
+									"\r",
+									"    // kollar att ras id stämmer med sökt id som är lik med \"abys\"\r",
+									"    pm.expect(breedId).to.eql(\"abys\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "live_7iiNlWVrlyxcUhYzWx9P66jMqZuVpFvUli1S8xlBa53gPSXVI3kIE4L54Po0y38p",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/images/search?breed_id=abys",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"images",
+								"search"
+							],
+							"query": [
+								{
+									"key": "breed_id",
+									"value": "abys"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "8-Datavalidering(Manuell)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/images/search?limit=1&breed_ids=bomb",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"images",
+								"search"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1"
+								},
+								{
+									"key": "breed_ids",
+									"value": "bomb"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4 (man) get breed list(pagination)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"// Kontrollera att rätt antal resultat returneras",
+									"pm.test(\"Correct number of results per page\", function () {",
+									"    // Ange det förväntade antalet resultat per sida",
+									"    var expectedResultsPerPage = 10;",
+									"",
+									"    // Konvertera JSON-svaret till ett JavaScript-objekt",
+									"    var jsonData = pm.response.json();",
+									"",
+									"    // Hämta antalet resultat från svaret",
+									"    var actualResults = jsonData.length;",
+									"",
+									"    // Jämför det antalet resultat med det förväntade",
+									"    pm.expect(actualResults).to.equal(expectedResultsPerPage);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "live_edemSI3jn1cjn5GAml5rZyVt2LeiiCmt16XBBLaOgoZ9xHRsa4jKhdepdfSiuIZH",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/breeds?page=1&limit=10",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"breeds"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "9 (man) rate limit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/breeds",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"breeds"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5А. Data Consistency Testing",
+			"item": [
+				{
+					"name": "5-Get a list of breeds",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is not empty\", function () {\r",
+									"    pm.response.to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains expected name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('name');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/breeds",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"breeds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5-Get breed by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Breed id matches\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.eql(pm.environment.get('id'));\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/breeds/{{breed_id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"breeds",
+								"{{breed_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "**ENG**: Automated tests for fetching a list of cat breeds and subsequently sending individual GET requests to retrieve details for each breed based on their breed ID. The tests **verify that the data consistency between the list and the individual details** using assertions.\n\n**SWE**: Automatiserade tester för att hämta en lista över kattraser och därefter skicka individuella GET-förfrågningar för att hämta detaljer för varje ras baserat på deras ras-ID. Testerna **verifierar att datan är konsekvent mellan listan och de individuella detaljerna** med hjälp av påståenden."
+		},
+		{
+			"name": "3A. ChainedRequests",
 			"item": [
 				{
 					"name": "3(auto)First request: Get all the breeds",
@@ -877,7 +1123,35 @@
 									"        }\r",
 									"    }\r",
 									"    return null; // Return null if breed name is not found\r",
-									"}"
+									"}\r",
+									"\r",
+									"var breedName = \"American Curl\"; // Replace with the desired breed name\r",
+									"var breedId = findBreedId(breedName);\r",
+									"if (breedId) {\r",
+									"    pm.environment.set(\"breed_id\", breedId);\r",
+									"} else {\r",
+									"    console.error(\"Breed ID not found for breed name: \" + breedName);\r",
+									"}\r",
+									"\r",
+									"\r",
+									"// Verify the status code is 200 OK\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Verify the response body contains the expected data\r",
+									"pm.test(\"Response contains 'id' and 'name' fields\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.be.an('array').that.is.not.empty; // \r",
+									"\r",
+									"    // Iterate through each object in the array and check if it contains 'id' and 'name' fields\r",
+									"    jsonData.forEach(function (breed) {\r",
+									"        pm.expect(breed).to.have.property('id');\r",
+									"        pm.expect(breed).to.have.property('name');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -968,34 +1242,26 @@
 					"response": []
 				}
 			],
-			"description": "This folder contains requests and tests for automating the retrieval of breed ID based on the breed name and fetching a specific image for that breed from the CAT API. It includes two requests: one for obtaining the breed ID by name and another for fetching an image of the breed by its ID. Each request is accompanied by tests to ensure the correctness of the responses received."
+			"description": "**ENG:** Automated test suite for **chaining multiple API requests**, such as fetching a breed ID based on its name and then using that ID to fetch a specific image for that breed. It **verifies that the responses for both requests contain the correct data** using assertions.\n\n**SWE:** Automatiserad testsvit för **att koppla flera API-förfrågningar**, såsom att hämta ett ras-ID baserat på dess namn och sedan använda det ID:t för att hämta en specifik bild för just den rasen. Den **verifierar att svaren för båda förfrågningarna innehåller korrekta data** med hjälp av assertions."
 		},
 		{
-			"name": "Manuel tests",
-			"item": []
-		},
-		{
-			"name": "Data Consistency",
+			"name": "1A Test Responce Time",
 			"item": [
 				{
-					"name": "5-Get a list of breeds",
+					"name": "1-Svarstid (Auto)",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
+									"let threshold = 450;\r",
 									"\r",
-									"pm.test(\"Response body is not empty\", function () {\r",
-									"    pm.response.to.not.be.empty;\r",
+									"pm.test(\"Is the response time below the threshold?\", function () {\r",
+									"     \r",
+									"     let responseTime = pm.response.responseTime;\r",
+									"     pm.expect(responseTime).to.be.below(threshold);\r",
 									"});\r",
-									"\r",
-									"pm.test(\"Response contains expected name\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[0]).to.have.property('name');\r",
-									"});"
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -1006,47 +1272,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://api.thecatapi.com/v1/breeds",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"breeds"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "5-Get breed by id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Breed id matches\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.name).to.eql(pm.environment.get('id'));\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/images/search?breed_ids",
+							"raw": "https://api.thecatapi.com/v1/images/search",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -1057,24 +1283,19 @@
 								"v1",
 								"images",
 								"search"
-							],
-							"query": [
-								{
-									"key": "breed_ids",
-									"value": null
-								}
 							]
 						}
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "**ENG**: Automated test **to measure the response time** of a simple GET request to fetch a random cat image. Verify that the response time meets a predefined threshold using assertions.\n\nChecking response time helps **ensure good performance and satisfactory user experience**.\n\n**SWE:** Automatiserat test för **att mäta svarstiden** för en enkel GET-begäran för att hämta en slumpmässig kattbild. Verifiera att svarstiden når en fördefinierad nivå med hjälp av påståenden.\n\nAtt kontrollera svarstiden hjälper till **att säkerställa god prestanda och tillfredsställande användarupplevelse.**"
 		},
 		{
-			"name": "7-Concurrent Requests(Auto)",
+			"name": "2A. Test Rensponse Headers",
 			"item": [
 				{
-					"name": "7-1-Concurrent Requests(Auto)",
+					"name": "Response Headers",
 					"event": [
 						{
 							"listen": "test",
@@ -1090,8 +1311,23 @@
 									"pm.test(\"Response contains image URL\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData[0].url).to.be.a('string');\r",
+									"});\r",
+									"pm.test(\"Content-Type header is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
 									"\r",
-									"});"
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Server header is present\", function () {\r",
+									"    pm.response.to.have.header(\"Server\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Server header value is Google Frontend\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Server\")).to.eql(\"Google Frontend\");\r",
+									"});\r",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -1102,7 +1338,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://api.thecatapi.com/v1/images/search?breed_ids=beng",
+							"raw": "https://api.thecatapi.com/v1/images/search?limit=10",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -1116,467 +1352,8 @@
 							],
 							"query": [
 								{
-									"key": "breed_ids",
-									"value": "beng"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "7-2-Concurrent Requests(Auto)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response is JSON\", function () {\r",
-									"    pm.response.to.be.json;\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response contains image URL\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[0].url).to.be.a('string');\r",
-									"\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/images/search?breed_id=abys",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"images",
-								"search"
-							],
-							"query": [
-								{
-									"key": "breed_id",
-									"value": "abys"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "7-3-Concurrent Requests(Auto)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response is JSON\", function () {\r",
-									"    pm.response.to.be.json;\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response contains image URL\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[0].url).to.be.a('string');\r",
-									"\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/images/search?breed_id=tang",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"images",
-								"search"
-							],
-							"query": [
-								{
-									"key": "breed_id",
-									"value": "tang"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "7-4-Concurrent Requests(Auto)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response is JSON\", function () {\r",
-									"    pm.response.to.be.json;\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response contains image URL\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[0].url).to.be.a('string');\r",
-									"\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/images/search?breed_id=aege",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"images",
-								"search"
-							],
-							"query": [
-								{
-									"key": "breed_id",
-									"value": "aege"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "7-5-Concurrent Requests(Auto)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response is JSON\", function () {\r",
-									"    pm.response.to.be.json;\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response contains image URL\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[0].url).to.be.a('string');\r",
-									"\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/images/search?breed_id=asho",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"images",
-								"search"
-							],
-							"query": [
-								{
-									"key": "breed_id",
-									"value": "asho"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "7-6-Concurrent Requests(Auto)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response is JSON\", function () {\r",
-									"    pm.response.to.be.json;\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response contains image URL\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[0].url).to.be.a('string');\r",
-									"\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/images/search?breed_id=buri",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"images",
-								"search"
-							],
-							"query": [
-								{
-									"key": "breed_id",
-									"value": "buri"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "7-7-Concurrent Requests(Auto)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response is JSON\", function () {\r",
-									"    pm.response.to.be.json;\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response contains image URL\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[0].url).to.be.a('string');\r",
-									"\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/images/search?breed_id=bomb",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"images",
-								"search"
-							],
-							"query": [
-								{
-									"key": "breed_id",
-									"value": "bomb"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "7-8-Concurrent Requests(Auto)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response is JSON\", function () {\r",
-									"    pm.response.to.be.json;\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response contains image URL\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[0].url).to.be.a('string');\r",
-									"\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/images/search?breed_id=chau",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"images",
-								"search"
-							],
-							"query": [
-								{
-									"key": "breed_id",
-									"value": "chau"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "7-9-Concurrent Requests(Auto)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response is JSON\", function () {\r",
-									"    pm.response.to.be.json;\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response contains image URL\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[0].url).to.be.a('string');\r",
-									"\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/images/search?breed_id=cspa",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"images",
-								"search"
-							],
-							"query": [
-								{
-									"key": "breed_id",
-									"value": "cspa"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "7-10-Concurrent Requests(Auto)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response is JSON\", function () {\r",
-									"    pm.response.to.be.json;\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response contains image URL\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[0].url).to.be.a('string');\r",
-									"\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.thecatapi.com/v1/images/search?breed_id=bslo",
-							"protocol": "https",
-							"host": [
-								"api",
-								"thecatapi",
-								"com"
-							],
-							"path": [
-								"v1",
-								"images",
-								"search"
-							],
-							"query": [
-								{
-									"key": "breed_id",
-									"value": "bslo"
+									"key": "limit",
+									"value": "10"
 								}
 							]
 						}
@@ -1584,302 +1361,22 @@
 					"response": []
 				}
 			],
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"type": "text/javascript",
-						"packages": {},
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"packages": {},
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"Response is JSON\", function () {\r",
-							"    pm.response.to.be.json;\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response contains image URL\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData[0].url).to.be.a('string');\r",
-							"\r",
-							"});"
-						]
-					}
-				}
-			]
+			"description": "**ENG:** StartFragmentTesting Response Headers **ensures that the retrieved cat image has the correct content type and encoding**, enhancing data integrityEndFragment\n\nChecking headers in the Headers request **helps ensure proper interaction between the client and server**, which contributes to accurate data processing and enhances the user experience.\n\n**SWE:** Testning av svarsrubriker **säkerställer att den hämtade kattbilden har korrekt innehållstyp och kodning**, vilket förbättrar datans integritet.  \nAtt kontrollera rubriker i begäran Headers **hjälper till att säkerställa korrekt interaktion mellan klienten och servern,** vilket bidrar till korrekt dataprocessering och förbättrar användarupplevelsen."
 		},
 		{
-			"name": "4 (man) get a list of breeds with limit",
-			"event": [
+			"name": "4A. Looping",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response contains results\", function () {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.length).to.be.above(0);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response contains correct number of results\", function () {\r",
-							"    const responseJson = pm.response.json();\r",
-							"    pm.expect(responseJson.length).to.eql(5); // Antal resultat per sida\r",
-							"});\r",
-							"\r",
-							"\r",
-							"pm.test(\"Response contains appropriate pagination metadata\", function () {\r",
-							"    const responseHeaders = pm.response.headers;\r",
-							"    pm.expect(responseHeaders.get(\"pagination-page\")).to.eql(\"1\"); // Aktuellt sidnummer\r",
-							"    pm.expect(responseHeaders.get(\"pagination-count\")).to.be.above(0); // Totalt antal sidor\r",
-							"});\r",
-							"\r",
-							"\r",
-							"pm.test(\"Response contains correct number of results\", function () {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.length).to.eql(pm.environment.get(\"limit\")); \r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response contains pagination metadata\", function () {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.totalPages).to.be.a('number');\r",
-							"    pm.expect(jsonData.page).to.be.a('number');\r",
-							"    pm.expect(jsonData.totalResults).to.be.a('number');\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-api-key",
-						"value": "live_7iiNlWVrlyxcUhYzWx9P66jMqZuVpFvUli1S8xlBa53gPSXVI3kIE4L54Po0y38p",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "https://api.thecatapi.com/v1/breeds?limit=5&page=1",
-					"protocol": "https",
-					"host": [
-						"api",
-						"thecatapi",
-						"com"
-					],
-					"path": [
-						"v1",
-						"breeds"
-					],
-					"query": [
-						{
-							"key": "limit",
-							"value": "5"
-						},
-						{
-							"key": "page",
-							"value": "1"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "5 (man)  get a breeds with specified temperament",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200 OK\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"\r",
-							"pm.test(\"Response contains 'playful' temperament\", function () {\r",
-							"    const responseJson = pm.response.json();\r",
-							"    const allTemperaments = responseJson.map(obj => obj.temperament);\r",
-							"    const expectedTemperament = \"lively\";\r",
-							"\r",
-							"    pm.expect(allTemperaments.every(temperament => temperament.includes(expectedTemperament))).to.be.true;\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-api-key",
-						"value": "live_7iiNlWVrlyxcUhYzWx9P66jMqZuVpFvUli1S8xlBa53gPSXVI3kIE4L54Po0y38p",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "https://api.thecatapi.com/v1/breeds/search?temperament=lively\n\n",
-					"protocol": "https",
-					"host": [
-						"api",
-						"thecatapi",
-						"com"
-					],
-					"path": [
-						"v1",
-						"breeds",
-						"search"
-					],
-					"query": [
-						{
-							"key": "temperament",
-							"value": "lively\n\n"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "10 (man) test response time duration",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"response time meets the predefined performance criteria\", function () {\r",
-							"    const timeResponse = pm.response.responseTime;\r",
-							"console.log(\"Response time for breed image: \" + responseTime + \" mc\");\r",
-							"\r",
-							"// performance criteria\r",
-							"const expectedResponseTime = 600; \r",
-							"if (timeResponse > expectedResponseTime) {\r",
-							"    console.error(\"Response time is longer than expected\");\r",
-							"}\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-api-key",
-						"value": "live_7iiNlWVrlyxcUhYzWx9P66jMqZuVpFvUli1S8xlBa53gPSXVI3kIE4L54Po0y38p",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "https://api.thecatapi.com/v1/images/search?breed_ids=beng",
-					"protocol": "https",
-					"host": [
-						"api",
-						"thecatapi",
-						"com"
-					],
-					"path": [
-						"v1",
-						"images",
-						"search"
-					],
-					"query": [
-						{
-							"key": "breed_ids",
-							"value": "beng"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "1(man)get one cat picture",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-api-key",
-						"value": "live_nUHcDKgLHM8cOzVjVw5WuiVZw60TazuFVDvWMf696dqfu3Vkr0r4st4sFzCycQUg",
-						"type": "text"
+					"name": "4 (Auto)Looping Through Data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"description": "\nThis endpoint makes an HTTP GET request to retrieve images of cats based on the specified breed ID. The `limit` query parameter can be used to limit the number of images returned. The response will be in JSON format with an array of cat images. \n\nFor example:\n- To retrieve images of a specific breed with ID \"xyz123\", the request would be: `GET https://api.thecatapi.com/v1/images/search?limit=1&breed_ids=xyz123`\n\nThe last execution of this request returned a status code of 200 and an empty JSON array as the response.\n"
 					},
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{baseUrl}}/images/search",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"images",
-						"search"
-					]
+					"response": []
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "2(man)get cat picture by breed",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-api-key",
-						"value": "live_nUHcDKgLHM8cOzVjVw5WuiVZw60TazuFVDvWMf696dqfu3Vkr0r4st4sFzCycQUg",
-						"type": "text"
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{baseUrl}}/images/search?limit=1&breed_ids=abys",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"images",
-						"search"
-					],
-					"query": [
-						{
-							"key": "limit",
-							"value": "1"
-						},
-						{
-							"key": "breed_ids",
-							"value": "abys"
-						}
-					]
-				}
-			},
-			"response": []
+			],
+			"description": "**ENG:** This test suite is designed to automate the process of iterating through various breeds available in the CAT API and sending GET requests for specific images associated with each breed. **It verifies the correctness of status codes and image URLs in the API responses**.\n\n**SWE:** Denna testsvit är avsedd att automatisera processen att iterera genom olika raser tillgängliga i CAT API och skicka GET-begäranden för specifika bilder associerade med varje ras. Den **verifierar korrektheten av statuskoder och bild-URL:er i API-svaren.**"
 		}
 	]
 }
