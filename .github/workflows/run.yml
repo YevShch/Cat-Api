@@ -22,7 +22,7 @@ jobs:
       - name: Upload Test Results to Discord
         if: always()
         env:
-          DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1226464109680263219/cfAUULyxtqG79ydcUXW_5oeZKcFu6E7PeFiik8-b3R_GFjLVlnJOcU9Y8rClh0jgl5po
+          DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1226597716226736160/tfaUh_rMPUMF3Ge_5Nnb4P3cVb66qhMIfiPyTbJfEt7c30DyV5wdVb3TCL70t67LKjJJ
         run: |
           curl -X POST -H 'Content-Type: multipart/form-data' \
           -F "file=@test_results.html" \
@@ -32,6 +32,6 @@ jobs:
       - name: Send Discord Notification Test Passed
         if: always()
         env:
-          DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1226464109680263219/cfAUULyxtqG79ydcUXW_5oeZKcFu6E7PeFiik8-b3R_GFjLVlnJOcU9Y8rClh0jgl5po
+          DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1226597716226736160/tfaUh_rMPUMF3Ge_5Nnb4P3cVb66qhMIfiPyTbJfEt7c30DyV5wdVb3TCL70t67LKjJJ
         run: |
           curl -X POST -H 'Content-Type: application/json' -d '{"content":"Postman tests are completed!"}' $DISCORD_WEBHOOK_URL
