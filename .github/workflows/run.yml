@@ -38,4 +38,15 @@ jobs:
       env:
         DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1227220027183337524/THqo7lSXDCzLEDI3W8KeSNTGy2qNGGRpmciSlUf-Wj9EJsFv6kN8W7qDuZej0j5m2htS
       run: |
-        Invoke-WebRequest -Uri $env:DISCORD_WEBHOOK_URL -Method Post -InFile "test_results.html" -Body @{content="Test results file"}
+        curl -X POST -H 'Content-Type: multipart/form-data' \
+          -F "file=@test_results.html" \
+          -F "payload_json={\"content\":\"Test results file:\"}" \
+          $DISCORD_WEBHOOK_URL
+
+    - name: Send Discord Notification Test Passed
+      if: always()
+      env:
+        DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1227220027183337524/THqo7lSXDCzLEDI3W8KeSNTGy2qNGGRpmciSlUf-Wj9EJsFv6kN8W7qDuZej0j5m2htSru
+      run: |
+        curl -X POST -H 'Content-Type: application/json' -d '{"content":"Postman tests are completed!"}' $DISCORD_WEBHOOK_URL
+
