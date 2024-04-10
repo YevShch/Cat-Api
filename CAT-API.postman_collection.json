@@ -33,7 +33,7 @@
 									"        if (err) {\r",
 									"            console.log(err);\r",
 									"        }\r",
-									"        // Tests will automatically run after this callback\r",
+									"\r",
 									"    });\r",
 									"}"
 								],

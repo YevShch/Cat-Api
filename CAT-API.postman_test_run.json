@@ -1,0 +1,102 @@
+{
+	"id": "c0deb469-5ce1-40d9-adbe-5f66b8e14db4",
+	"name": "CAT-API",
+	"timestamp": "2024-04-08T12:30:16.123Z",
+	"collection_id": "33841208-5cc1b1f6-29f0-4605-a5e0-a76e51d4b5e0",
+	"folder_id": "33841208-4a9e9340-5ea0-4ee5-ae0e-7a870e5d19c6",
+	"environment_id": "33841194-3dced6f1-4d72-4c7d-a899-7fb42224c7c0",
+	"totalPass": 5,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2024-04-08T12:30:13.196Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "012854fa-bf5b-4fd6-b4d5-d229f751ee02",
+			"name": "5-Get a list of breeds",
+			"url": "https://api.thecatapi.com/v1/breeds",
+			"time": 496,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response body is not empty": true,
+				"Response contains expected name": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response body is not empty": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response contains expected name": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				496
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response body is not empty": true,
+					"Response contains expected name": true
+				}
+			]
+		},
+		{
+			"id": "948bd37d-f825-476a-b363-487bfeae1053",
+			"name": "5-Get breed by id",
+			"url": "https://api.thecatapi.com/v1/breeds/",
+			"time": 495,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Breed id matches": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Breed id matches": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				495
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Breed id matches": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 991,
+	"collection": {
+		"requests": [
+			{
+				"id": "012854fa-bf5b-4fd6-b4d5-d229f751ee02",
+				"method": "GET"
+			},
+			{
+				"id": "948bd37d-f825-476a-b363-487bfeae1053",
+				"method": "GET"
+			}
+		]
+	}
+}
