@@ -21,6 +21,9 @@ jobs:
       with:
         node-version: '16'
 
+    - name: Install dependencies
+      run: npm install
+
     - name: Install Newman and htmlextra reporter
       run: |
         npm install -g newman@latest
@@ -35,4 +38,4 @@ jobs:
       env:
         DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1227220027183337524/THqo7lSXDCzLEDI3W8KeSNTGy2qNGGRpmciSlUf-Wj9EJsFv6kN8W7qDuZej0j5m2htS
       run: |
-        Invoke-WebRequest -Uri $env:DISCORD_WEBHOOK_URL -Method Post -ContentType "multipart/form-data" -InFile "test_results.html" -Body @{content="Test results file"}
+        Invoke-WebRequest -Uri $env:DISCORD_WEBHOOK_URL -Method Post -InFile "test_results.html" -Body @{content="Test results file"}
