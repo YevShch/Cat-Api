@@ -1,43 +1,28 @@
-name: REST-API Testing with Postman
+name: CI
 
 on:
   push:
     branches:
-      - main
+      - main 
+  pull_request:
+    branches:
+      - main 
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  test:
+    runs-on: windows-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
 
-      - name: Check file permissions
-        run: ls -l
+    - name: Install Newman
+      run: npm install -g newman
 
-      - name: Run Newman and Export Test Results
-        run: |
-          newman run CAT-API.postman_collection.json \
-            --reporters json,htmlextra \
-            --reporter-json-export test_results.json \
-            --reporter-htmlextra-export test_results.html
-
-      - name: Upload Test Results to Discord
-        if: always()
-        env:
-          DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1227220027183337524/THqo7lSXDCzLEDI3W8KeSNTGy2qNGGRpmciSlUf-Wj9EJsFv6kN8W7qDuZej0j5m2htS
-        run: |
-          curl -X POST -H 'Content-Type: multipart/form-data' \
-            -F "file=@test_results.html" \
-            -F "payload_json={\"content\":\"Test results file:\"}" \
-            $DISCORD_WEBHOOK_URL
-
-      - name: Send Discord Notification Test Passed
-        if: always()
-        env:
-          DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1227220027183337524/THqo7lSXDCzLEDI3W8KeSNTGy2qNGGRpmciSlUf-Wj9EJsFv6kN8W7qDuZej0j5m2htSru
-        run: |
-          curl -X POST -H 'Content-Type: application/json' -d '{"content":"Postman tests are completed!"}' $DISCORD_WEBHOOK_URL
+    - name: Run Postman Tests
+      run: newman run ./CAT-API.postman_collection.json
