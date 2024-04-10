@@ -17,7 +17,10 @@ jobs:
 
       - name: Run Newman and Export Test Results
         run: |
-          newman run CAT-API.postman_collection.json --reporters htmlextra --reporter-htmlextra-export test_results.html
+          newman run CAT-API.postman_collection.json \
+            --reporters json,htmlextra \
+            --reporter-json-export test_results.json \
+            --reporter-htmlextra-export test_results.html
 
       - name: Upload Test Results to Discord
         if: always()
@@ -25,9 +28,9 @@ jobs:
           DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1227220027183337524/THqo7lSXDCzLEDI3W8KeSNTGy2qNGGRpmciSlUf-Wj9EJsFv6kN8W7qDuZej0j5m2htS
         run: |
           curl -X POST -H 'Content-Type: multipart/form-data' \
-          -F "file=@test_results.html" \
-          -F "payload_json={\"content\":\"Test results file:\"}" \
-          $DISCORD_WEBHOOK_URL
+            -F "file=@test_results.html" \
+            -F "payload_json={\"content\":\"Test results file:\"}" \
+            $DISCORD_WEBHOOK_URL
 
       - name: Send Discord Notification Test Passed
         if: always()
