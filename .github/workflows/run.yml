@@ -1,52 +1,38 @@
-name: CI
+name: REST-API Testing with Postman
 
 on:
   push:
     branches:
-      - main 
-  pull_request:
-    branches:
-      - main 
+      - main
 
 jobs:
-  test:
-    runs-on: windows-latest
-
+  build:
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Install Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'
+      - name: Install dependencies
+        run: npm install
 
-    - name: Install dependencies
-      run: npm install
+      - name: Run Newman and Export Test Results
+        run: |
+          newman run CAT-API.postman_collection.json --reporters htmlextra --reporter-htmlextra-export test_results.html
 
-    - name: Install Newman and htmlextra reporter
-      run: |
-        npm install -g newman@latest
-        npm install -g newman-reporter-htmlextra
-
-    - name: Run Postman Tests and Export HTML Report
-      run: |
-        newman run ./CAT-API.postman_collection.json --reporters htmlextra --reporter-htmlextra-export test_results.html
-
-    - name: Upload Test Results to Discord
-      if: always()
-      env:
-        DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1227220027183337524/THqo7lSXDCzLEDI3W8KeSNTGy2qNGGRpmciSlUf-Wj9EJsFv6kN8W7qDuZej0j5m2htS
-      run: |
-        curl -X POST -H 'Content-Type: multipart/form-data' \
+      - name: Upload Test Results to Discord
+        if: always()
+        env:
+          DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1226464109680263219/cfAUULyxtqG79ydcUXW_5oeZKcFu6E7PeFiik8-b3R_GFjLVlnJOcU9Y8rClh0jgl5po
+        run: |
+          curl -X POST -H 'Content-Type: multipart/form-data' \
           -F "file=@test_results.html" \
           -F "payload_json={\"content\":\"Test results file:\"}" \
           $DISCORD_WEBHOOK_URL
 
-    - name: Send Discord Notification Test Passed
-      if: always()
-      env:
-        DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1227220027183337524/THqo7lSXDCzLEDI3W8KeSNTGy2qNGGRpmciSlUf-Wj9EJsFv6kN8W7qDuZej0j5m2htSru
-      run: |
-        curl -X POST -H 'Content-Type: application/json' -d '{"content":"Postman tests are completed!"}' $DISCORD_WEBHOOK_URL
+      - name: Send Discord Notification Test Passed
+        if: always()
+        env:
+          DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1226464109680263219/cfAUULyxtqG79ydcUXW_5oeZKcFu6E7PeFiik8-b3R_GFjLVlnJOcU9Y8rClh0jgl5po
+        run: |
+          curl -X POST -H 'Content-Type: application/json' -d '{"content":"Postman tests are completed!"}' $DISCORD_WEBHOOK_URL
 
