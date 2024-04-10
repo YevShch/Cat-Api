@@ -15,6 +15,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install Newman and htmlextra reporter
+        run: |
+           npm install -g newman@latest
+           npm install -g newman-reporter-htmlextra
+
       - name: Run Newman and Export Test Results
         run: |
           newman run CAT-API.postman_collection.json --reporters htmlextra --reporter-htmlextra-export test_results.html
