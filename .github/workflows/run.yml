@@ -21,8 +21,10 @@ jobs:
       with:
         node-version: '16'
 
-    - name: Install Newman
-      run: npm install -g newman@latest
+    - name: Install Newman and htmlextra reporter
+      run: |
+        npm install -g newman@latest
+        npm install -g newman-reporter-htmlextra
 
     - name: Run Postman Tests and Export HTML Report
       run: |
@@ -33,7 +35,4 @@ jobs:
       env:
         DISCORD_WEBHOOK_URL: https://discordapp.com/api/webhooks/1227220027183337524/THqo7lSXDCzLEDI3W8KeSNTGy2qNGGRpmciSlUf-Wj9EJsFv6kN8W7qDuZej0j5m2htS
       run: |
-        curl -X POST -H 'Content-Type: multipart/form-data' \
-        -F "file=@test_results.html" \
-        -F "payload_json={\"content\":\"Test results file:\"}" \
-        $DISCORD_WEBHOOK_URL
+        Invoke-WebRequest -Uri $env:DISCORD_WEBHOOK_URL -Method Post -ContentType "multipart/form-data" -InFile "test_results.html" -Body @{content="Test results file"}
